@@ -11,3 +11,5 @@ setenv
 setenv DYLD_LIBRARY_PATH .
 setenv DYLD_INSERT_LIBRARIES lib.so
 setenv DYLD_FORCE_FLAT_NAMESPACE 1
+
+https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/UsingDynamicLibraries.html
