@@ -5,6 +5,11 @@ BLU =	\033[34m
 STD =	\033[39m
 
 NAME =		libft_malloc.so
+#libft_malloc_$HOSTTYPE.so
+
+#ifeq ($(HOSTTYPE),)
+#	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+#endif
 
 SDIR =		./srcs/
 SRCS =		malloc.c
