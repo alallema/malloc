@@ -15,8 +15,15 @@
 # define BLOCK_SIZE sizeof(t_block)
 # define ZONE_SIZE sizeof(t_zone)
 
-# define TINY 128 // 16 bytes
-# define SMALL 4096 // 512 bytes
+# define TINY 512 // 15 pages
+# define SMALL 4096 // 101 pages
+
+# define TINY_AREA 14 * getpagesize()
+# define SMALL_AREA 101 * getpagesize()
+
+# define TINY_TYPE 0
+# define SMALL_TYPE 1
+# define LARGE_TYPE 2
 
 typedef struct	s_block
 {
@@ -26,16 +33,19 @@ typedef struct	s_block
 	int				free;
 }					t_block;
 
-typedef struct		s_zone
+typedef struct	s_area
 {
 	int				type;
-	size_t			remaining;
 	t_block			*base;
-	struct s_zone	*next;
-}					t_zone;
+	struct s_area	*next;
+}				t_area;
 
-void free(void *ptr);
-void *malloc(size_t size);
-void *realloc(void *ptr, size_t size);
+t_area				*g_base;
+
+void	*alloc(t_block *base, size_t type);
+
+void	free(void *ptr);
+void	*malloc(size_t size);
+void	*realloc(void *ptr, size_t size);
 
 void show_alloc_mem();

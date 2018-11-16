@@ -22,14 +22,23 @@ cluster of pages
 
 16 bytes resolution
 
+Tiny -> 512 -- 15 * get
+Small -> 4096 -- 101 * get
+
 Tiny -> 128 -- 8 * get
 Small -> 2048 -- 64 * get
 
-8 bits = 1 Byte = 1 octet
-
-Tiny Apple -> 16 bytes
-Small Apple -> 512 bytes
+Tiny Apple -> 16 bytes -> 215 bytes
+Small Apple -> 512 bytes -> 4096 bytes
 Large 4kB
+
+typedef struct		s_zone
+{
+	int				type;
+	size_t			remaining;
+	t_block			*base;
+	struct s_zone	*next;
+}					t_zone;
 
 # define BLOCK_SIZE sizeof(t_block)
 # define ZONE_SIZE sizeof(t_zone)

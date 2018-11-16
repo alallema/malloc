@@ -17,25 +17,51 @@
 #include <string.h>
 #include "malloc.h"
 
-int main() {
-	int		nb;
-	void	*s;
-	void	*base;
-	t_block	block;
+size_t		get_size(size)
+{
+	if (size <= TINY)
+		return TINY_AREA;
+	else if (size <= SMALL)
+		return SMALL_AREA;
+	else if (size >= SMALL)
+		return size;
+}
 
-	base = NULL;
-	nb = 32;
-	block.size = 0;
-	block.next = NULL;
-	block.free = 0;
-	s = mmap(0, nb + 1, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-//	strcpy(s, "lalalala");
-	memcpy(s, &block, sizeof(block));
-	memcpy(s + sizeof(block), &block, sizeof(block));
-	printf("pagesize :%d\n", getpagesize());
-	printf("size :%lu\n", sizeof(block));
-	printf("size :%lu\n", sizeof(int));
-//	printf("size :%lu\n", sizeof(*block));
-	printf("size :%lu\n", sizeof(block));
-	//printf("%s", s);
+void	*alloc(t_block *base, size_t size)
+{
+	void	*ptr;
+
+	ptr = mmap(0, get_size(size), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	return (ptr);
+}
+
+void	init_alloc(size_t size)
+{
+	void	*ptr;
+
+	ptr = mmap(0, get_type(size), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+
+
+//	t_area	*base;
+//	t_block	*block;
+
+//	base = init_base(size);
+//	block = init_block(size);
+//	area_size = type(size) * page_type(size);
+//	if (g_base->base == NULL)
+//		init_area(size);
+}
+
+void	*malloc(size_t *size)
+{
+	if (size == 0)
+		return (-1);
+	if (g_base == NULL)
+		init_alloc(size);
+//	if (g_base->base == NULL)
+//		init_area(size);
+}
+
+int main() {
+	
 }
