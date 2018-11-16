@@ -16,7 +16,7 @@ https://developer.apple.com/library/archive/documentation/DeveloperTools/Concept
 
 mapping virtual memory page -> 4Kb
 stack -> 64Kb
-getconf PAGE_SIZE -> 4096
+getconf PAGE_SIZE -> 4096 bytes
 
 cluster of pages
 
@@ -25,12 +25,18 @@ cluster of pages
 Tiny -> 128 -- 8 * get
 Small -> 2048 -- 64 * get
 
+8 bits = 1 Byte = 1 octet
+
 Tiny Apple -> 16 bytes
 Small Apple -> 512 bytes
 Large 4kB
 
+# define BLOCK_SIZE sizeof(t_block)
+# define ZONE_SIZE sizeof(t_zone)
+
 /* single word (4) or double word (8) alignment */
 #define ALIGNMENT 8
+#define align4(x) (((((x) -1) >> 2) << 2) +4)
 
 /* rounds up to the nearest multiple of ALIGNMENT */
 #define ALIGN(p) (((size_t)(p) + (ALIGNMENT-1)) & ~0x7)
