@@ -17,51 +17,68 @@
 #include <string.h>
 #include "malloc.h"
 
-size_t		get_size(size)
+int		get_type(size)
 {
 	if (size <= TINY)
-		return TINY_AREA;
+		return TINY_TYPE;
 	else if (size <= SMALL)
-		return SMALL_AREA;
+		return SMALL_TYPE;
 	else if (size >= SMALL)
-		return size;
+		return LARGE_TYPE;
+	return (-1);
 }
 
-void	*alloc(t_block *base, size_t size)
+void	*alloc_area(size_t size)
 {
 	void	*ptr;
+	t_area	*base;
 
-	ptr = mmap(0, get_size(size), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	ptr = mmap(0, size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	base = ptr;
+	base->type = 1;
+	base->base = NULL;
+	base->next = NULL;
 	return (ptr);
 }
 
 void	init_alloc(size_t size)
 {
-	void	*ptr;
+//	void	*ptr;
 
-	ptr = mmap(0, get_type(size), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-
-
+//	ptr = mmap(0, get_type(size), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 //	t_area	*base;
 //	t_block	*block;
 
 //	base = init_base(size);
 //	block = init_block(size);
 //	area_size = type(size) * page_type(size);
+	if (g_base == NULL)
 //	if (g_base->base == NULL)
-//		init_area(size);
+		alloc_area(size);
 }
 
-void	*malloc(size_t *size)
+void	*ft_malloc(size_t size)
 {
+	size_t	area[3];
+
+	area[TINY_TYPE] = TINY_AREA;
+	area[SMALL_TYPE] = SMALL_AREA;
+	area[LARGE_TYPE] = size;
+	printf("size : %lu\n", size);
+	printf("size : %lu\n", area[get_type(size)]);
 	if (size == 0)
-		return (-1);
+		return (NULL);
 	if (g_base == NULL)
-		init_alloc(size);
+		init_alloc(area[get_type(size)] + AREA_SIZE);
 //	if (g_base->base == NULL)
 //		init_area(size);
+	return (NULL);
 }
 
 int main() {
-	
+	void	*ptr;
+
+	ptr = ft_malloc(sizeof(t_block));
+//	printf(" g_base : %d", g_base->type);
+	return (0);
 }

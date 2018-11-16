@@ -13,7 +13,7 @@
 #include <stdlib.h>
 
 # define BLOCK_SIZE sizeof(t_block)
-# define ZONE_SIZE sizeof(t_zone)
+# define AREA_SIZE sizeof(t_area)
 
 # define TINY 512 // 15 pages
 # define SMALL 4096 // 101 pages
@@ -42,7 +42,7 @@ typedef struct	s_area
 
 t_area				*g_base;
 
-void	*alloc(t_block *base, size_t type);
+//void	*alloc(t_block *base, size_t type);
 
 void	free(void *ptr);
 void	*malloc(size_t size);
