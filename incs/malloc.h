@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alallema <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/16 08:34:05 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/17 12:49:29 by alallema         ###   ########.fr       */
+/*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
+/*   Updated: 2018/11/17 16:02:49 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,13 @@
 # define BLOCK_MEM(ptr) ((void *)((unsigned long)ptr + BLOCK_SIZE))
 # define AREA_MEM(ptr) ((void *)((unsigned long)ptr + AREA_SIZE))
 
-# define GET(p)       (*(int *)(p))
-# define PUT(p, val)  (*(int *)(p) = (val))
-# define GET_SIZE(p)  (GET(p) & ~0x7)
+# define GET(ptr)       (*(int *)(ptr))
+# define PUT(ptr, val)  (*(int *)(ptr) = (val))
+# define GET_SIZE(ptr)  (GET(ptr) & ~0x7)
+
+//# define ALIGN(ptr)
+//# define ALIGN(x) (((((x) -1) >> 2) << 2) +4)
+//# define ALIGN(p) (((size_t)(p) + (ALIGNMENT-1)) & ~0x7)
 
 typedef struct	s_block
 {
