@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/17 16:02:49 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/17 20:08:13 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/mman.h>
 # include <errno.h>
 # include <string.h>
+# include <stdio.h>
 
 # define BLOCK_SIZE sizeof(t_block)
 # define AREA_SIZE sizeof(t_area)
@@ -60,6 +61,12 @@ typedef struct	s_area
 t_area				*g_base;
 
 //void	*alloc(t_block *base, size_t type);
+
+int		get_type(size_t size);
+
+void	*alloc_area(size_t size);
+void	*alloc_block(void *prev, void *ptr, size_t size);
+void	*find_area(size_t type);
 
 void	free(void *ptr);
 void	*malloc(size_t size);

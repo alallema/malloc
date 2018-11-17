@@ -16,7 +16,9 @@ INCS =		malloc.h
 INCC =		$(addprefix $(IDIR),$(INCS))
 
 SDIR =		./srcs/
-SRCS =		main.c
+SRCS =		main.c			\
+			area_list.c		\
+			alloc.c
 
 SRCC =		$(addprefix $(SDIR),$(SRCS))
 
@@ -31,17 +33,17 @@ FLAG =		-Wall -Wextra -Werror -I$(IDIR)
 all: $(NAME)
 
 $(NAME): header $(OBCC)
-	@echo "  ${PIN}++ Compilation ++ :${STD} $@"
+	@echo "  ${PUR}++ Compilation ++ :${STD} $@"
 	@gcc $(FLAG) $(OBCC) -o $(NAME)
-	@echo "  ${PRR}Compilation terminee !${STD}"
+	@echo "  ${PIN}Compilation terminee !${STD}"
 
 $(ODIR)%.o: $(SDIR)%.c
-	@echo "  ${GRE}+Compilation :${STD} $^"
+	@echo "  ${PUR}+Compilation :${STD} $^"
 	@mkdir -p $(ODIR)
 	@gcc $^ $(FLAG) -c -o $@
 
 header:
-	@echo "${PUR}"
+	@echo "${PRR}"
 	@echo "  ==================="
 	@echo "  |  Projet Malloc  |"
 	@echo "  ==================="
