@@ -6,7 +6,7 @@
 /*   By: alallema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 17:14:49 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/16 09:06:10 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/17 12:12:30 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,30 @@ int		get_type(size)
 	return (-1);
 }
 
+void	*alloc_block(void *ptr, size_t size)
+{
+	t_block	*block;
+
+	block = ptr;
+	block->size = 32;
+	block->next = NULL;
+	block->prev = NULL;
+	return (BLOCK_MEM(ptr));
+}
+
 void	*alloc_area(size_t size)
 {
-	void	*ptr;
+	void		*ptr;
 	t_area	*base;
 
 	ptr = mmap(0, size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	base = ptr;
 	base->type = 1;
-	base->base = NULL;
+	base->base = AREA_MEM(base);
 	base->next = NULL;
-	return (ptr);
+//	printf("type :%d\n", GET(base));
+	alloc_block(AREA_MEM(base), size);
+	return (base);
 }
 
 void	init_alloc(size_t size)
@@ -53,8 +66,10 @@ void	init_alloc(size_t size)
 //	block = init_block(size);
 //	area_size = type(size) * page_type(size);
 	if (g_base == NULL)
+		g_base = alloc_area(size);
 //	if (g_base->base == NULL)
-		alloc_area(size);
+//			printf ("lala");
+	printf ("base base : %lu\n", g_base->base->size);
 }
 
 void	*ft_malloc(size_t size)
@@ -79,6 +94,8 @@ int main() {
 	void	*ptr;
 
 	ptr = ft_malloc(sizeof(t_block));
-//	printf(" g_base : %d", g_base->type);
+	if (g_base)
+		printf("g_base : %d\n", g_base->type);
+		printf("block : %lu", g_base->base->size);
 	return (0);
 }

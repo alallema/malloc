@@ -6,11 +6,13 @@
 /*   By: alallema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 08:34:05 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/16 09:10:55 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/17 12:02:43 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef MALLOC_H
+# define MALLOC_H
+# include <stdlib.h>
 
 # define BLOCK_SIZE sizeof(t_block)
 # define AREA_SIZE sizeof(t_area)
@@ -25,13 +27,20 @@
 # define SMALL_TYPE 1
 # define LARGE_TYPE 2
 
+# define BLOCK_MEM(ptr) ((void *)((unsigned long)ptr + BLOCK_SIZE))
+# define AREA_MEM(ptr) ((void *)((unsigned long)ptr + AREA_SIZE))
+
+# define GET(p)       (*(int *)(p))
+# define PUT(p, val)  (*(int *)(p) = (val))
+# define GET_SIZE(p)  (GET(p) & ~0x7)
+
 typedef struct	s_block
 {
 	size_t			size;
 	struct s_block	*next;//??? a calculer
 	struct s_block	*prev;
 	int				free;
-}					t_block;
+}				t_block;
 
 typedef struct	s_area
 {
@@ -49,3 +58,5 @@ void	*malloc(size_t size);
 void	*realloc(void *ptr, size_t size);
 
 void show_alloc_mem();
+
+#endif
