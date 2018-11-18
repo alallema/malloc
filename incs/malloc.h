@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/18 13:41:46 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/18 16:08:41 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	print_list();
 int		get_type(size_t size);
 
 void	*alloc_area(size_t size);
-void	*alloc_block(void *prev, void *ptr, size_t size, int free);
+void	*alloc_block(void *next, void *ptr, size_t size, int free);
 void	*find_area(size_t type);
 void	*find_block(t_block *block, size_t size);
 void	*split_block(t_block *block, size_t size);

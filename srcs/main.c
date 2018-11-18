@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 17:14:49 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/18 13:50:08 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/18 16:16:12 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,19 @@ int		main()
 {
 	void	*ptr;
 	void	*ptr2;
+	void	*ptr3;
 
 	ptr = ft_malloc(9);
-	ptr2 = ft_malloc(8763);
+	ptr2 = ft_malloc(10 + 1);
+	ft_malloc(5500);
+	ptr3 = ft_malloc(500);
+	ft_malloc(540);
+	ft_malloc(540);
+	ft_malloc(540);
+	strcpy(ptr, "lalalala\n");
+	strcpy(ptr2, "ehijklmnok\0");
 	print_list();
-//	strcpy(ptr, "lalalala");
-//	strcpy(ptr2, "lalaskdfjhgkdxjbfvlksdjbfjkvlala");
-//	printf("ptr : %s", ptr);
-//	printf("ptr2 : %s", ptr2);
+	printf("ptr : %s", ptr);
+	printf("ptr2 : %s", ptr2);
 	return (0);
 }
