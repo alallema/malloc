@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 16:01:48 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/17 20:14:31 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/18 13:20:33 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	*find_area(size_t size)
 
 	ptr = g_base;
 	type = get_type(size);
-	printf("ptr : %d\n", (unsigned int)g_base);
 	while (ptr && ptr->next)
 	{
 		if (ptr->type == type)
@@ -29,21 +28,17 @@ void	*find_area(size_t size)
 	return (ptr);
 }
 
-void	*find_block(t_area *area, size_t size)
+void	*find_block(t_block *ptr, size_t size)
 {
 	t_block	*block;
 
-	block = area->base;
-	if (block && block->next)
+	block = ptr;
+	while (block && block->next)
 	{
-		block;
-		while (ptr->next && type != ptr->type)
-			ptr = ptr->next;
-		return (ptr);
+		if (size <= block->size && block->free == 0)
+			return (block);
+		block = block->next;
 	}
-	while (block && block->free == 1)
-	{
-
-	}
-	return NULL;
+	return block;
 }
+

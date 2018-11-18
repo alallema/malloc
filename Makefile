@@ -17,6 +17,7 @@ INCC =		$(addprefix $(IDIR),$(INCS))
 
 SDIR =		./srcs/
 SRCS =		main.c			\
+			debug.c			\
 			area_list.c		\
 			alloc.c
 
