@@ -6,15 +6,29 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 13:20:50 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/18 16:16:15 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/18 18:35:10 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**** DEBUG ***/
+/*
+*** DEBUG **
+*/
 
 #include "malloc.h"
 
-void	print_list()
+void	rev_print_list(t_block *block)
+{
+	printf("**** REVERSE ****\n");
+	while (block)
+	{
+		printf("block size : %lu\n", block->size);
+		printf("block free : %d\n", block->free);
+		printf("block data : %s\n", BLOCK_MEM(block));
+		block = block->prev;
+	}
+}
+
+void	print_list(void)
 {
 	t_area	*area;
 	t_block	*block;
@@ -33,6 +47,8 @@ void	print_list()
 				printf("block size : %lu\n", block->size);
 				printf("block free : %d\n", block->free);
 				printf("block data : %s\n", BLOCK_MEM(block));
+//				if (!block->next)
+//					rev_print_list(block);
 				block = block->next;
 			}
 			area = area->next;

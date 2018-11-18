@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   area_list.c                                        :+:      :+:    :+:   */
+/*   list_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 16:01:48 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/18 14:44:54 by alallema         ###   ########.fr       */
+/*   Created: 2018/11/18 17:25:46 by alallema          #+#    #+#             */
+/*   Updated: 2018/11/18 17:25:49 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,5 @@ void	*find_block(t_block *ptr, size_t size)
 			return (block);
 		block = block->next;
 	}
-	return block;
+	return (block);
 }
-
