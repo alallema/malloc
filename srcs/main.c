@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 17:14:49 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/18 18:35:38 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/18 19:43:19 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int		main(void)
 	strcpy(ptr2, "ehijklmnok\0");
 	print_list();
 	ft_free(ptr2);
+	print_list();
+	ft_free(ptr3);
+	print_list();
+	ft_free(ptr);
 	print_list();
 //	printf("ptr : %s", ptr);
 //	printf("ptr2 : %s", ptr2);

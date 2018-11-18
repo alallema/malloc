@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/18 18:06:13 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/18 20:01:38 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct	s_area
 
 t_area				*g_base;
 
+void				print_block(t_block *block);
 void				print_list();
 
 int					get_type(size_t size);

@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 13:20:50 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/18 18:35:10 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/18 19:42:07 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	print_list(void)
 	area = NULL;
 	if (g_base)
 	{
-		printf("g_base : %d", g_base->type);
+		//printf("g_base : %d", g_base->type);
+		printf("**** LIST ****\n");
 		area = g_base;
 		while (area)
 		{
@@ -53,7 +54,15 @@ void	print_list(void)
 			}
 			area = area->next;
 		}
+		printf("**** END ****\n");
 	}
 	else
 		printf("No g_base ...");
+}
+
+void	print_block(t_block *block)
+{
+	printf("block size : %lu\n", block->size);
+	printf("block free : %d\n", block->free);
+	printf("block data : %s\n", BLOCK_MEM(block));
 }
