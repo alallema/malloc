@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:22:53 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/18 17:28:38 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/19 18:09:21 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void		*init_alloc(size_t size)
 	if (area && area->type != get_type(size))
 	{
 		area->next = alloc_area(size);
+		area->next->prev = area;
 		area = area->next;
 	}
 	if (area && area->type == get_type(size))

@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/18 20:01:38 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/19 17:59:17 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define BLOCK_SIZE sizeof(t_block)
 # define AREA_SIZE sizeof(t_area)
 
-# define TINY 512 // 15 pages
-# define SMALL 4096 // 101 pages
+# define TINY 512
+# define SMALL 4096
 
 # define TINY_AREA 14 * getpagesize()
 # define SMALL_AREA 101 * getpagesize()
@@ -43,38 +43,40 @@
 //# define ALIGN(x) (((((x) -1) >> 2) << 2) +4)
 //# define ALIGN(p) (((size_t)(p) + (ALIGNMENT-1)) & ~0x7)
 
-typedef struct	s_block
+typedef struct		s_block
 {
 	size_t			size;
 	struct s_block	*next;
 	struct s_block	*prev;
 	int				free;
-}				t_block;
+}					t_block;
 
-typedef struct	s_area
+typedef struct		s_area
 {
 	int				type;
 	t_block			*base;
 	struct s_area	*next;
-}				t_area;
+	struct s_area	*prev;
+}					t_area;
 
 t_area				*g_base;
 
-void				print_block(t_block *block);
+void				print_block_list(t_block *block);
 void				print_list();
 
 int					get_type(size_t size);
 
 void				*alloc_area(size_t size);
-void				*alloc_block(void *prev, void *next, void *ptr, size_t size, int free);
 void				*find_area(size_t type);
 void				*find_block(t_block *block, size_t size);
 void				*split_block(t_block *block, size_t size);
+void				delete_area(t_area *area);
 
 void				ft_free(void *ptr);
 void				*ft_malloc(size_t size);
 void				*realloc(void *ptr, size_t size);
 
 void				show_alloc_mem();
+void				print_area(void *addr, int type);
 
 #endif
