@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/19 17:59:17 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/21 22:02:00 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define PUT(ptr, val)  (*(int *)(ptr) = (val))
 # define GET_SIZE(ptr)  (GET(ptr) & ~0x7)
 
+# define ALIGN_LARGE(size) ((size/SMALL + 1) * (SMALL))
+
 //# define ALIGN(ptr)
 //# define ALIGN(x) (((((x) -1) >> 2) << 2) +4)
 //# define ALIGN(p) (((size_t)(p) + (ALIGNMENT-1)) & ~0x7)
@@ -70,13 +72,15 @@ void				*alloc_area(size_t size);
 void				*find_area(size_t type);
 void				*find_block(t_block *block, size_t size);
 void				*split_block(t_block *block, size_t size);
+void				fusion_block(t_block *block);
 void				delete_area(t_area *area);
 
 void				ft_free(void *ptr);
 void				*ft_malloc(size_t size);
-void				*realloc(void *ptr, size_t size);
+void				*ft_realloc(void *ptr, size_t size);
 
 void				show_alloc_mem();
 void				print_area(void *addr, int type);
+void				putstr(char const *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:33:20 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/19 18:09:19 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/21 21:58:30 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,45 +53,34 @@ void	free_area(t_block *block)
 	t_block	*tmp;
 	size_t	size;
 
+	size = 0;
 	tmp = block;
 	while (tmp && tmp->prev)
 		tmp = tmp->prev;
 	area = (t_area *)((unsigned long)tmp - AREA_SIZE);
-	if (area->type == TINY)
+	if (area->type == TINY_TYPE)
 		size = TINY_AREA;
-	else if (area->type == SMALL)
+	else if (area->type == SMALL_TYPE)
 		size = SMALL_AREA;
 	else
-		size = tmp->size + AREA_SIZE + BLOCK_SIZE;
+		size = ALIGN_LARGE(size);
 	delete_area(area);
 	ft_bzero(area, size);
-	munmap(area, size);
+	munmap((void *)area, size);
 }
 
-void	*fusion_block(t_block *block, size_t *size)
+void	fusion_block(t_block *block)
 {
-	t_block	*ret;
+	size_t	ret;
+	t_block	*buff;
 
-	if (block->next && block->next->free == 0)
-	{
-		*size += BLOCK_SIZE;
-		block->size += block->next->size + BLOCK_SIZE;
-		ret = block->next;
-		block->next = block->next->next;
-		if (block->next && block->next->prev)
-			block->next->prev = block;
-		ft_bzero(ret, BLOCK_SIZE);
-	}
-	if (block->prev && block->prev->free == 0)
-	{
-		*size += BLOCK_SIZE;
-		block->prev->size += block->size + BLOCK_SIZE;
-		block->prev->next = block->next;
-		if (block->next)
-			block->next->prev = block->prev;
-		block -= BLOCK_SIZE;
-	}
-	return (block);
+	ret = block->next->size;
+	block->size += block->next->size + BLOCK_SIZE;
+	buff = block->next;
+	block->next = block->next->next;
+	if (block->next)
+		block->next->prev = block;
+	ft_bzero(buff, ret);
 }
 
 void	ft_free(void *ptr)
@@ -108,8 +97,10 @@ void	ft_free(void *ptr)
 		free_area(block);
 	else
 	{
-		block = fusion_block(block, &size);
+		if (block->next && block->next->free == 0)
+			fusion_block(block);
+		if (block->prev && block->prev->free == 0)
+			fusion_block(block->prev);
 		ft_bzero((void *)BLOCK_MEM(block), size);
-		munmap((void *)BLOCK_MEM(block), size);
 	}
 }

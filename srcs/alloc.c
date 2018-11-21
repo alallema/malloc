@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 19:38:45 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/19 18:00:08 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/21 20:24:59 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,15 @@ void		*alloc_area(size_t size)
 void		*split_block(t_block *block, size_t size)
 {
 	void	*new;
-	t_block	*next;
+	size_t	size_new;
+	void	*addr;
 
-	next = block->next;
-	if (get_type(size) == 2)
-	{
-		block->free = 1;
-		return (BLOCK_MEM(block));
-	}
-	block->size = block->size - size - BLOCK_SIZE;
-	new = ((void *)((unsigned long)(block) + block->size));
-	block->next = new;
-	if (next)
-		next->prev = new;
-	new = alloc_block(next, new, size, 1);
+	size_new = block->size - size - BLOCK_SIZE;
+	addr = ((void *)((unsigned long)(block) + size + BLOCK_SIZE));
+	new = alloc_block(block->next, addr, size_new, 0);
+	block->size = size;
+	block->free = 1;
+	block->next = (t_block *)(new - BLOCK_SIZE);
 	((t_block *)(new - BLOCK_SIZE))->prev = block;
-	return (new);
+	return (BLOCK_MEM(block));
 }

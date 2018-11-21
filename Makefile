@@ -17,10 +17,11 @@ INCC =		$(addprefix $(IDIR),$(INCS))
 
 SDIR =		./srcs/
 SRCS =		main.c			\
-			malloc.c		\
-			list_tools.c	\
 			alloc.c			\
+			malloc.c		\
+			realloc.c		\
 			free.c			\
+			list_tools.c	\
 			print.c			\
 			show_alloc_mem.c
 

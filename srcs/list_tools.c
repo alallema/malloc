@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:25:46 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/19 17:34:44 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/21 21:56:11 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	delete_area(t_area *area)
 	t_area	*ret;
 
 	ret = area->next;
-	if (area == g_base && area->next)
+	if (area == g_base)
 		g_base = area->next;
 	else if (area->prev && area->prev->next)
 		area->prev->next = area->next;

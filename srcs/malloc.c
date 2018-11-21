@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:22:53 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/19 18:09:21 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/21 22:01:06 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 static void		*init_alloc(size_t size)
 {
-	void	*ptr;
 	t_area	*area;
 	t_block	*block;
 
-	ptr = NULL;
 	if (g_base == NULL)
 		g_base = alloc_area(size);
 	area = find_area(size);
@@ -31,9 +29,15 @@ static void		*init_alloc(size_t size)
 	if (area && area->type == get_type(size))
 	{
 		block = find_block(area->base, size);
-		ptr = split_block(block, size);
+		if (get_type(size) < 2)
+			return (split_block(block, size));
+		else
+		{
+			block->free = 1;
+			return (BLOCK_MEM(block));
+		}
 	}
-	return (ptr);
+	return (NULL);
 }
 
 void			*ft_malloc(size_t size)
