@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/21 22:02:00 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/22 22:37:30 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 # define TINY 512
 # define SMALL 4096
+# define PAGE 4096
+# define PADD 16
 
 # define TINY_AREA 14 * getpagesize()
 # define SMALL_AREA 101 * getpagesize()
@@ -39,9 +41,9 @@
 # define PUT(ptr, val)  (*(int *)(ptr) = (val))
 # define GET_SIZE(ptr)  (GET(ptr) & ~0x7)
 
-# define ALIGN_LARGE(size) ((size/SMALL + 1) * (SMALL))
+# define ALIGN(size) (((size)/PADD + 1) * PADD)
+# define ALIGN_PAGE(size) ((((size + AREA_SIZE + BLOCK_SIZE)/PAGE) + 1) * PAGE)
 
-//# define ALIGN(ptr)
 //# define ALIGN(x) (((((x) -1) >> 2) << 2) +4)
 //# define ALIGN(p) (((size_t)(p) + (ALIGNMENT-1)) & ~0x7)
 

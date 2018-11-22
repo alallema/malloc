@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:33:20 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/21 21:58:30 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/22 22:55:47 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	free_area(t_block *block)
 	else if (area->type == SMALL_TYPE)
 		size = SMALL_AREA;
 	else
-		size = ALIGN_LARGE(size);
+		size = ALIGN_PAGE(size);
 	delete_area(area);
 	ft_bzero(area, size);
 	munmap((void *)area, size);

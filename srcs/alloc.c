@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 19:38:45 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/21 20:24:59 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/22 22:52:16 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		*alloc_area(size_t size)
 
 	area[TINY_TYPE] = TINY_AREA;
 	area[SMALL_TYPE] = SMALL_AREA;
-	area[LARGE_TYPE] = size + AREA_SIZE + BLOCK_SIZE;
+	area[LARGE_TYPE] = ALIGN_PAGE(size);
 	ptr = mmap(0, area[get_type(size)], PROT_READ | \
 			PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	base = (t_area *)ptr;
@@ -62,6 +62,7 @@ void		*split_block(t_block *block, size_t size)
 	size_t	size_new;
 	void	*addr;
 
+	size = ALIGN(size);
 	size_new = block->size - size - BLOCK_SIZE;
 	addr = ((void *)((unsigned long)(block) + size + BLOCK_SIZE));
 	new = alloc_block(block->next, addr, size_new, 0);
