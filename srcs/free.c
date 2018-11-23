@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:33:20 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 15:48:19 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 21:39:35 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,38 +69,43 @@ void	free_area(t_block *block)
 	munmap((void *)area, size);
 }
 
-void	fusion_block(t_block *block)
+void	*check_ptr(void *ptr)
 {
-	size_t	ret;
-	t_block	*buff;
+	t_block		*block;
 
-	ret = block->next->size;
-	block->size += block->next->size + BLOCK_SIZE;
-	buff = block->next;
-	block->next = block->next->next;
-	if (block->next)
-		block->next->prev = block;
-	ft_bzero(buff, ret);
+	if ((block = ptr - BLOCK_SIZE))
+	{
+		while (block && block->prev)
+			block = block->prev;
+		while (block && block->next)
+			block = block->next;
+		return (block);
+	}
+	return (NULL);
 }
 
-void	free(void *ptr)
+void	ft_free(void *ptr)
 {
 	t_block		*block;
 	size_t		size;
 
 	if (!ptr)
 		return ;
-	block = ptr - BLOCK_SIZE;
-	block->free = 0;
-	size = block->size;
-	if (get_type(block->size) == 2 || area_is_empty(block))
-		free_area(block);
-	else
+	if (!check_ptr(ptr))
+		return ;
+	if ((block = ptr - BLOCK_SIZE))
 	{
-		if (block->next && block->next->free == 0)
-			fusion_block(block);
-		if (block->prev && block->prev->free == 0)
-			fusion_block(block->prev);
-		ft_bzero((void *)BLOCK_MEM(block), size);
+		block->free = 0;
+		size = block->size;
+		if (get_type(block->size) == 2 || area_is_empty(block))
+			free_area(block);
+		else
+		{
+			if (block->next && block->next->free == 0)
+				fusion_block(block);
+			if (block->prev && block->prev->free == 0)
+				fusion_block(block->prev);
+			ft_bzero((void *)BLOCK_MEM(block), size);
+		}
 	}
 }

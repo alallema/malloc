@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:25:46 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/21 21:56:11 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 21:12:28 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void	*find_block(t_block *ptr, size_t size)
 			return (block);
 		block = block->next;
 	}
-	return (block);
+	if (size <= block->size && block->free == 0)
+		return (block);
+	return (NULL);
 }
 
 void	delete_area(t_area *area)

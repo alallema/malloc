@@ -11,7 +11,8 @@ ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-NAME =		libft_malloc.so
+NAME =		test
+#NAME =		libft_malloc.so
 #EXEC =		main.c
 
 IDIR =		./incs/
@@ -26,7 +27,8 @@ SRCS =		alloc.c			\
 			free.c			\
 			list_tools.c	\
 			print.c			\
-			show_alloc_mem.c
+			show_alloc_mem.c\
+			main.c
 
 SRCC =		$(addprefix $(SDIR),$(SRCS))
 
@@ -34,7 +36,7 @@ ODIR =		./objs/
 OBJS =		$(SRCS:.c=.o)
 OBCC =		$(addprefix $(ODIR),$(OBJS))
 
-NORM =		$(SRCC) $(INCC)# $(EXEC)
+NORM =		$(SRCC) $(INCC)
 
 FLAG =		-Wall -Wextra -Werror -I$(IDIR)
 
@@ -42,9 +44,9 @@ all: $(NAME)
 
 $(NAME): header $(OBCC)
 	@echo "  ${PUR}++ Compilation ++ :${STD} $@"
-#	@gcc $(FLAG) $(OBCC) -o rendu
-	@gcc -g $(FLAG) $(OBCC) -fPIC -shared -o libft_malloc_$(HOSTTYPE).so
-	@ln -sf libft_malloc_$(HOSTTYPE).so libft_malloc.so
+	@gcc -g $(FLAG) $(OBCC) -o $(NAME)
+#	@gcc -g $(FLAG) $(OBCC) -fPIC -shared -Wpadded -o libft_malloc_$(HOSTTYPE).so
+#	@ln -sf libft_malloc_$(HOSTTYPE).so libft_malloc.so
 	@echo "  ${PIN}Compilation terminee !${STD}"
 
 $(ODIR)%.o: $(SDIR)%.c
@@ -72,7 +74,7 @@ clean: header
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f libft_malloc_$(HOSTTYPE).so
+#	@rm -f libft_malloc_$(HOSTTYPE).so
 	@echo "  ${RED}-Delete objects and binary${STD}"
 
 re: fclean all

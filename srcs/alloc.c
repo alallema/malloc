@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 19:38:45 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 16:40:43 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 21:55:32 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,18 @@ void		*split_block(t_block *block, size_t size)
 	block->next = (t_block *)(new - BLOCK_SIZE);
 	((t_block *)(new - BLOCK_SIZE))->prev = block;
 	return (BLOCK_MEM(block));
+}
+
+void	fusion_block(t_block *block)
+{
+	size_t	ret;
+	t_block	*buff;
+
+	ret = block->next->size;
+	block->size += block->next->size + BLOCK_SIZE;
+	buff = block->next;
+	block->next = block->next->next;
+	if (block->next)
+		block->next->prev = block;
+	ft_bzero(buff, ret);
 }
