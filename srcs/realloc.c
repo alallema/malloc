@@ -6,15 +6,28 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 18:24:09 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 14:35:47 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 15:50:51 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-//void		*find_alloc(t_block *block, size_t size)
-//{
-//}
+static void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t			i;
+	char			*d;
+	char			*s;
+
+	i = 0;
+	d = (char *)dst;
+	s = (char *)src;
+	while (i < n)
+	{
+		*(d + i) = *(s + i);
+		i++;
+	}
+	return (dst);
+}
 
 void		*realloc(void *ptr, size_t size)
 {
@@ -43,7 +56,7 @@ void		*realloc(void *ptr, size_t size)
 	else
 	{
 		buff = malloc(size);
-		memcpy(buff, ptr, block->size);
+		ft_memcpy(buff, ptr, block->size);
 		free(ptr);
 	}
 	return (NULL);

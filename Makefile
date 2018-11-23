@@ -42,7 +42,8 @@ all: $(NAME)
 
 $(NAME): header $(OBCC)
 	@echo "  ${PUR}++ Compilation ++ :${STD} $@"
-	@gcc $(FLAG) $(OBCC) -shared -o libft_malloc_$(HOSTTYPE).so
+#	@gcc $(FLAG) $(OBCC) -o rendu
+	@gcc -g $(FLAG) $(OBCC) -fPIC -shared -o libft_malloc_$(HOSTTYPE).so
 	@ln -sf libft_malloc_$(HOSTTYPE).so libft_malloc.so
 	@echo "  ${PIN}Compilation terminee !${STD}"
 

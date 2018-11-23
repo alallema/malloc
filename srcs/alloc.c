@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 19:38:45 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 14:09:49 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 16:40:43 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void		*alloc_area(size_t size)
 	area[LARGE_TYPE] = ALIGN_PAGE(size);
 	ptr = mmap(0, area[get_type(size)], PROT_READ | \
 			PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	if (!ptr)
+		return (NULL);
 	base = (t_area *)ptr;
 	base->type = get_type(size);
 	base->base = AREA_MEM(base);
