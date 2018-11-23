@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 17:14:49 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 21:52:27 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 22:07:27 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(void)
 //	void	*ptr3;
 //	int i;
 //	char *addr;
-//	ptr2 = ft_malloc(10 + 1);
+//	ptr2 = ft_malloc(16);
 //	void *la = ft_malloc(610);
 //		i = 0;
 //		while (i < 1024)
@@ -37,7 +37,7 @@ int		main(void)
 //		}
 	char *addr1;
 	char *addr3;
-	addr1 = (char*)ft_malloc(16);
+	addr1 = (char*)ft_malloc(16 * M);
 	strcpy(addr1, "Bonjours\n");
 	show_alloc_mem();
 	print(addr1);
@@ -63,7 +63,7 @@ int		main(void)
 //	strcpy(ptr2, "abcdefgh\0");
 //	strcpy(ptr3, "AAAAAAAA\0");
 //	strcpy(la, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa\0");
-	show_alloc_mem();
+//	show_alloc_mem();
 //	ft_free(la);
 //	ft_free(p);
 //	print_list();

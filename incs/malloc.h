@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 21:55:46 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 22:06:35 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@
 # define BLOCK_MEM(ptr) ((void *)((unsigned long)ptr + BLOCK_SIZE))
 # define AREA_MEM(ptr) ((void *)((unsigned long)ptr + AREA_SIZE))
 
-//# define ALIGN(p) (((size_t)(p) + (16-1)) & ~0x7)
-# define ALIGN(size) (((size/PADD) + 1) * PADD)
-# define ALIGN_PAGE(size) ((((size + AREA_SIZE + BLOCK_SIZE)/PAGE) + 1) * PAGE)
+# define ALIGNEMENT 16
+# define ALIGN(size) (((size) + (ALIGNEMENT-1)) & ~(ALIGNEMENT-1))
+# define ALIGN_PAGE(size) (((size + AREA_SIZE + BLOCK_SIZE) + (ALIGNEMENT-1)) & ~(ALIGNEMENT-1))
 
 typedef struct		s_block
 {

@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 18:24:09 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 21:37:48 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 22:07:36 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		*ft_realloc(void *ptr, size_t size)
 		ft_free(ptr);
 		return (ft_malloc(0));
 	}
-	if (!(block = ptr - BLOCK_SIZE))
+	if ((block = ptr - BLOCK_SIZE))
 	{
 //	block = ptr - BLOCK_SIZE;
 		if (block->next && block->next->free == 0 &&((size_t)block->size + (size_t)block->next->size) >= (ALIGN(size) + BLOCK_SIZE))
