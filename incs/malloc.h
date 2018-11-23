@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 22:06:35 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 23:16:22 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@
 
 # define BLOCK_SIZE sizeof(t_block)
 # define AREA_SIZE sizeof(t_area)
+# define MAX_SIZE (size + BLOCK_SIZE + AREA_SIZE)
 
-//# define TINY 128
 # define TINY 512
 # define SMALL 4096
-//# define SMALL 1024
 # define PAGE getpagesize()
 # define PADD 16
 
-# define TINY_AREA 14 * getpagesize()
-# define SMALL_AREA 101 * getpagesize()
-//# define TINY_AREA (((BLOCK_SIZE + AREA_SIZE + TINY)*100)/getpagesize())*getpagesize()
-//# define SMALL_AREA (((BLOCK_SIZE + AREA_SIZE + SMALL)*100)/getpagesize())*getpagesize()
+//# define TINY_AREA 14 * getpagesize()
+//# define SMALL_AREA 101 * getpagesize()
+
+# define TINY_AREA ((BLOCK_SIZE + AREA_SIZE + TINY)*100)/PAGE*PAGE
+# define SMALL_AREA (((((BLOCK_SIZE + AREA_SIZE + SMALL)*100)/PAGE) + 1)*PAGE)
 
 # define TINY_TYPE 0
 # define SMALL_TYPE 1
@@ -43,7 +43,7 @@
 
 # define ALIGNEMENT 16
 # define ALIGN(size) (((size) + (ALIGNEMENT-1)) & ~(ALIGNEMENT-1))
-# define ALIGN_PAGE(size) (((size + AREA_SIZE + BLOCK_SIZE) + (ALIGNEMENT-1)) & ~(ALIGNEMENT-1))
+# define ALIGN_PAGE(size) (ALIGN(MAX_SIZE))
 
 typedef struct		s_block
 {
@@ -79,9 +79,9 @@ void				delete_area(t_area *area);
 void				*ft_bzero(void *ptr, size_t size);
 void				*check_ptr(void *ptr);
 
-void				ft_free(void *ptr);
-void				*ft_malloc(size_t size);
-void				*ft_realloc(void *ptr, size_t size);
+void				free(void *ptr);
+void				*malloc(size_t size);
+void				*realloc(void *ptr, size_t size);
 
 void				show_alloc_mem();
 void				print_area(void *addr, int type);

@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:33:20 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 21:39:35 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 23:09:43 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,28 @@ void	free_area(t_block *block)
 void	*check_ptr(void *ptr)
 {
 	t_block		*block;
+	t_block		*tmp;
+	t_area		*area;
 
 	if ((block = ptr - BLOCK_SIZE))
 	{
-		while (block && block->prev)
-			block = block->prev;
-		while (block && block->next)
-			block = block->next;
-		return (block);
+		area = g_base;
+		while (area)
+		{
+			tmp = area->base;
+			while (tmp)
+			{
+				if (block == tmp)
+					return (block);
+				tmp = tmp->next;
+			}
+			area = area->next;
+		}
 	}
 	return (NULL);
 }
 
-void	ft_free(void *ptr)
+void	free(void *ptr)
 {
 	t_block		*block;
 	size_t		size;

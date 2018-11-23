@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 18:24:09 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 22:07:36 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 23:18:00 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,40 +29,46 @@ static void	*ft_memcpy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-void		*ft_realloc(void *ptr, size_t size)
+void		*check_realloc(t_block *block, size_t size)
 {
-	t_block		*block;
 	void		*buff;
 
+	if (block->next && block->next->free == 0 && ((size_t)block->size\
+		+ (size_t)block->next->size) >= (ALIGN(size) + BLOCK_SIZE))
+		fusion_block(block);
+	if (block->size >= size && block->size <= ALIGN(size))
+		return (BLOCK_MEM(block));
+	if (block->size > (ALIGN(size) + BLOCK_SIZE))
+	{
+		buff = split_block(block, size);
+		if (block->next)
+			ft_bzero(BLOCK_MEM(block->next), block->next->size - BLOCK_SIZE);
+		return (BLOCK_MEM(block));
+	}
+	else
+	{
+		buff = malloc(size);
+		ft_memcpy(buff, BLOCK_MEM(block), block->size);
+		free(BLOCK_MEM(block));
+		return (BLOCK_MEM(buff));
+	}
+	return (NULL);
+}
+
+void		*realloc(void *ptr, size_t size)
+{
+	t_block		*block;
+
 	if (!ptr)
-		return (ft_malloc(size));
+		return (malloc(size));
 	if (!check_ptr(ptr))
 		return (NULL);
 	if (size == 0)
 	{
-		ft_free(ptr);
-		return (ft_malloc(0));
+		free(ptr);
+		return (malloc(0));
 	}
 	if ((block = ptr - BLOCK_SIZE))
-	{
-//	block = ptr - BLOCK_SIZE;
-		if (block->next && block->next->free == 0 &&((size_t)block->size + (size_t)block->next->size) >= (ALIGN(size) + BLOCK_SIZE))
-			fusion_block(block);
-		if (block->size >= size && block->size <= ALIGN(size))
-			return (ptr);
-		if (block->size > (ALIGN(size) + BLOCK_SIZE))
-		{
-			buff = split_block(block, size);
-			if (block->next)
-				ft_bzero(BLOCK_MEM(block->next), block->next->size - BLOCK_SIZE);
-			return (ptr);
-		}
-		else
-		{
-			buff = malloc(size);
-			ft_memcpy(buff, ptr, block->size);
-			ft_free(ptr);
-		}
-	}
+		return (check_realloc(block, size));
 	return (NULL);
 }

@@ -11,9 +11,8 @@ ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-NAME =		test
-#NAME =		libft_malloc.so
-#EXEC =		main.c
+#NAME =		test
+NAME =		libft_malloc.so
 
 IDIR =		./incs/
 INCS =		malloc.h
@@ -27,8 +26,7 @@ SRCS =		alloc.c			\
 			free.c			\
 			list_tools.c	\
 			print.c			\
-			show_alloc_mem.c\
-			main.c
+			show_alloc_mem.c
 
 SRCC =		$(addprefix $(SDIR),$(SRCS))
 
@@ -44,9 +42,9 @@ all: $(NAME)
 
 $(NAME): header $(OBCC)
 	@echo "  ${PUR}++ Compilation ++ :${STD} $@"
-	@gcc -g $(FLAG) $(OBCC) -o $(NAME)
-#	@gcc -g $(FLAG) $(OBCC) -fPIC -shared -Wpadded -o libft_malloc_$(HOSTTYPE).so
-#	@ln -sf libft_malloc_$(HOSTTYPE).so libft_malloc.so
+#	@gcc -g $(FLAG) $(OBCC) -o $(NAME)
+	@gcc -g $(FLAG) $(OBCC) -fPIC -shared -Wpadded -o libft_malloc_$(HOSTTYPE).so
+	@ln -sf libft_malloc_$(HOSTTYPE).so libft_malloc.so
 	@echo "  ${PIN}Compilation terminee !${STD}"
 
 $(ODIR)%.o: $(SDIR)%.c
@@ -56,7 +54,6 @@ $(ODIR)%.o: $(SDIR)%.c
 
 header:
 	@echo "${PRR}"
-	@echo "$(HOSTTYPE)"
 	@echo "  ==================="
 	@echo "  |  Projet Malloc  |"
 	@echo "  ==================="
@@ -74,7 +71,7 @@ clean: header
 
 fclean: clean
 	@rm -f $(NAME)
-#	@rm -f libft_malloc_$(HOSTTYPE).so
+	@rm -f libft_malloc_$(HOSTTYPE).so
 	@echo "  ${RED}-Delete objects and binary${STD}"
 
 re: fclean all
