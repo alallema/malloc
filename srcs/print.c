@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 12:13:31 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/21 21:57:13 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 14:30:44 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,12 @@ static void		print_block(void *addr)
 		end = (unsigned long)(((t_block *)addr)->next);
 	else
 		end = begin + ((t_block *)addr)->size;
-//	printf("0x%lx", begin);
-//	printf(" - 0x%lx", end);
-//	printf(" : %lu\n", end - begin);
 	print_addr((void *)begin);
 	putstr(" - ");
 	print_addr((void *)end);
 	putstr(" : ");
 	putnbr_base(end - begin, 10);
 	putstr(" octets\n");
-	//** DEBUG A ENLEVER **//
-	printf("data :%s\n", (char *)begin);
-	printf("free :%d\n", ((t_block *)addr)->free);
 }
 
 void			print_area(void *addr, int type)

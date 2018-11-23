@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 17:14:49 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/22 22:43:06 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 14:25:00 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		main(void)
 	void *pt = ft_malloc(510);
 
 	void *la = ft_malloc(610);
-//	ft_malloc(610);
+	ft_malloc(610);
 	void *p = ft_malloc(7570);
 	(void)la;
 	(void)pp;

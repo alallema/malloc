@@ -40,12 +40,18 @@ typedef struct		s_zone
 	struct s_zone	*next;
 }					t_zone;
 
+//	printf("0x%lx", begin);
+//	printf(" - 0x%lx", end);
+//	printf(" : %lu\n", end - begin);
 # define BLOCK_SIZE sizeof(t_block)
 # define ZONE_SIZE sizeof(t_zone)
 
 /* single word (4) or double word (8) alignment */
 #define ALIGNMENT 8
 #define align4(x) (((((x) -1) >> 2) << 2) +4)
+
+# define ALIGN(x) (((((x) -1) >> 2) << 2) +4)
+# define ALIGN(p) (((size_t)(p) + (ALIGNMENT-1)) & ~0x7)
 
 /* rounds up to the nearest multiple of ALIGNMENT */
 #define ALIGN(p) (((size_t)(p) + (ALIGNMENT-1)) & ~0x7)

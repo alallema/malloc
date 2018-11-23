@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/22 22:37:30 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 14:30:43 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@
 # define ALIGN(size) (((size)/PADD + 1) * PADD)
 # define ALIGN_PAGE(size) ((((size + AREA_SIZE + BLOCK_SIZE)/PAGE) + 1) * PAGE)
 
-//# define ALIGN(x) (((((x) -1) >> 2) << 2) +4)
-//# define ALIGN(p) (((size_t)(p) + (ALIGNMENT-1)) & ~0x7)
-
 typedef struct		s_block
 {
 	size_t			size;
@@ -76,10 +73,11 @@ void				*find_block(t_block *block, size_t size);
 void				*split_block(t_block *block, size_t size);
 void				fusion_block(t_block *block);
 void				delete_area(t_area *area);
+void				*ft_bzero(void *ptr, size_t size);
 
-void				ft_free(void *ptr);
-void				*ft_malloc(size_t size);
-void				*ft_realloc(void *ptr, size_t size);
+void				free(void *ptr);
+void				*malloc(size_t size);
+void				*realloc(void *ptr, size_t size);
 
 void				show_alloc_mem();
 void				print_area(void *addr, int type);

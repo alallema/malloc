@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:33:20 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/22 22:55:47 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 14:29:23 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	fusion_block(t_block *block)
 	ft_bzero(buff, ret);
 }
 
-void	ft_free(void *ptr)
+void	free(void *ptr)
 {
 	t_block		*block;
 	size_t		size;

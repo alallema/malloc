@@ -7,7 +7,11 @@ PIN =		\033[1;35m
 PRR =		\033[0;36m
 STD =		\033[39m
 
-NAME =		test
+ifeq ($(HOSTTYPE),)
+	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
+
+NAME =		libft_malloc.so
 #EXEC =		main.c
 
 IDIR =		./incs/
@@ -16,8 +20,7 @@ INCS =		malloc.h
 INCC =		$(addprefix $(IDIR),$(INCS))
 
 SDIR =		./srcs/
-SRCS =		main.c			\
-			alloc.c			\
+SRCS =		alloc.c			\
 			malloc.c		\
 			realloc.c		\
 			free.c			\
@@ -39,7 +42,8 @@ all: $(NAME)
 
 $(NAME): header $(OBCC)
 	@echo "  ${PUR}++ Compilation ++ :${STD} $@"
-	@gcc $(FLAG) $(OBCC) -o $(NAME)
+	@gcc $(FLAG) $(OBCC) -shared -o libft_malloc_$(HOSTTYPE).so
+	@ln -sf libft_malloc_$(HOSTTYPE).so libft_malloc.so
 	@echo "  ${PIN}Compilation terminee !${STD}"
 
 $(ODIR)%.o: $(SDIR)%.c
@@ -49,6 +53,7 @@ $(ODIR)%.o: $(SDIR)%.c
 
 header:
 	@echo "${PRR}"
+	@echo "$(HOSTTYPE)"
 	@echo "  ==================="
 	@echo "  |  Projet Malloc  |"
 	@echo "  ==================="
@@ -66,6 +71,7 @@ clean: header
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -f libft_malloc_$(HOSTTYPE).so
 	@echo "  ${RED}-Delete objects and binary${STD}"
 
 re: fclean all

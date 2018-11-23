@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 14:52:08 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/21 21:58:28 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 14:30:53 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ void	show_alloc_mem(void)
 	area = NULL;
 	if (g_base)
 	{
-		putstr("**** LIST ****\n");
 		area = g_base;
 		while (area)
 		{
 			print_area(area, area->type);
 			area = area->next;
 		}
-		putstr("**** END ****\n");
 	}
 	else
 		putstr("No allocation memory");

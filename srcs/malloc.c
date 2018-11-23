@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:22:53 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/22 21:57:54 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/23 14:29:47 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		*init_alloc(size_t size)
 	return (NULL);
 }
 
-void			*ft_malloc(size_t size)
+void			*malloc(size_t size)
 {
 	void	*ptr;
 	t_area	*base;
