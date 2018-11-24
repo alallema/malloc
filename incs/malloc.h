@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 23:16:22 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/24 18:20:10 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@
 # define PAGE getpagesize()
 # define PADD 16
 
-//# define TINY_AREA 14 * getpagesize()
-//# define SMALL_AREA 101 * getpagesize()
-
 # define TINY_AREA ((BLOCK_SIZE + AREA_SIZE + TINY)*100)/PAGE*PAGE
 # define SMALL_AREA (((((BLOCK_SIZE + AREA_SIZE + SMALL)*100)/PAGE) + 1)*PAGE)
 
@@ -47,7 +44,6 @@
 
 typedef struct		s_block
 {
-//	char			*padd[PADD];
 	size_t			size;
 	struct s_block	*next;
 	struct s_block	*prev;
@@ -56,7 +52,6 @@ typedef struct		s_block
 
 typedef struct		s_area
 {
-//	char			*padd[PADD];
 	int				type;
 	t_block			*base;
 	struct s_area	*next;
@@ -86,5 +81,6 @@ void				*realloc(void *ptr, size_t size);
 void				show_alloc_mem();
 void				print_area(void *addr, int type);
 void				putstr(char const *str);
+void				putnbr_base(unsigned long nb, int base);
 
 #endif

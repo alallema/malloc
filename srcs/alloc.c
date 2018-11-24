@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 19:38:45 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 23:08:53 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/24 15:16:33 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ void		fusion_block(t_block *block)
 	block->next = block->next->next;
 	if (block->next)
 		block->next->prev = block;
-	ft_bzero(buff, ret);
+	if (check_ptr(buff))
+		ft_bzero(buff, ret);
 }

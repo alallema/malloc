@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:33:20 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 23:09:43 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/24 18:19:39 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,28 @@ void	*ft_bzero(void *s, size_t n)
 	}
 	return (src);
 }
+
+//int		clean_area(t_block *block)
+//{
+//	t_area	*area;
+//	t_area	*tmp;
+//	int		type;
+//	int		type[3];
+//
+//	type[0] = 0;
+//	type[1] = 0;
+//	type[2] = 0;
+//	area = (t_area *)((unsigned long)tmp - AREA_SIZE);
+//	tmp = g_base;
+//	while (tmp)
+//	{
+//		type[area->type] = 1;
+//		if (type[0] && type[1] && type[2])
+//			return (0);
+//		tmp = tmp->next;
+//	}
+//	return (1);
+//}
 
 int		area_is_empty(t_block *block)
 {
@@ -66,6 +88,7 @@ void	free_area(t_block *block)
 		size = ALIGN_PAGE(size);
 	delete_area(area);
 	ft_bzero(area, size);
+	putstr("** MUNMAP **\n");
 	munmap((void *)area, size);
 }
 
@@ -102,6 +125,7 @@ void	free(void *ptr)
 		return ;
 	if (!check_ptr(ptr))
 		return ;
+	putstr("** FREE **\n");
 	if ((block = ptr - BLOCK_SIZE))
 	{
 		block->free = 0;

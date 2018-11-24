@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 17:14:49 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/23 23:08:19 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/24 12:26:31 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@ int		main(void)
 //	void	*ptr;
 //	void	*ptr2;
 //	void	*ptr3;
-//	int i;
-//	char *addr;
+	int i;
+	char *addr;
 //	ptr2 = ft_malloc(16);
 //	void *la = ft_malloc(610);
-//		i = 0;
-//		while (i < 1024)
-//		{
-//			addr = (char*)ft_malloc(1024);
-//			addr[0] = 42;
-//			ft_free(addr);
-//			i++;
-//		}
+		i = 0;
+		while (i < 1024)
+		{
+			addr = (char*)ft_malloc(1024);
+			addr[0] = 42;
+			ft_free(addr);
+			i++;
+		}
 //	char *addr1;
 //	char *addr3;
 //	addr1 = (char*)ft_malloc(16 * M);
 //	strcpy(addr1, "Bonjours\n");
-//	show_alloc_mem();
+	show_alloc_mem();
 //	print(addr1);
 //	if (ft_realloc((void *)addr1 + 5, 10) == NULL)
 //		print("Bonjours\n");
@@ -47,12 +47,12 @@ int		main(void)
 //	show_alloc_mem();
 //	addr3[127*M] = 42;
 //	print(addr3);
-	char *addr;
-	addr = ft_malloc(16);
-	ft_free(NULL);
-	ft_free((void *)addr + 5);
-	if (ft_realloc((void *)addr + 5, 10) == NULL)
-		print("Bonjours\n");
+//	char *addr;
+//	addr = ft_malloc(16);
+//	ft_free(NULL);
+//	ft_free((void *)addr + 5);
+//	if (ft_realloc((void *)addr + 5, 10) == NULL)
+//		print("Bonjours\n");
 //	ptr = ft_malloc(1024);
 //	ptr3 = ft_malloc(10);
 //
