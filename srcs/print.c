@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 12:13:31 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:29:00 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:36:38 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void		print_block(void *addr)
 	unsigned long	begin;
 	unsigned long	end;
 
-	begin = (unsigned long)BLOCK_MEM(addr);
+	begin = (unsigned long)ptr_zone_mem(addr, BLOCK_SIZE);
 	if (((t_block *)addr)->next)
 		end = (unsigned long)(((t_block *)addr)->next);
 	else

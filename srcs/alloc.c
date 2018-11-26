@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 19:38:45 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/24 15:16:33 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:40:09 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	*alloc_block(void *next, void *ptr, size_t size, int free)
 	block->prev = NULL;
 	block->size = size;
 	block->free = free;
-	return (BLOCK_MEM(ptr));
+	return (ptr_zone_mem(ptr, BLOCK_SIZE));
 }
 
 void		*alloc_area(size_t size)
@@ -50,10 +50,10 @@ void		*alloc_area(size_t size)
 		return (NULL);
 	base = (t_area *)ptr;
 	base->type = get_type(size);
-	base->base = AREA_MEM(base);
+	base->base = ptr_zone_mem(base, AREA_SIZE);
 	base->next = NULL;
 	base->prev = NULL;
-	alloc_block(NULL, AREA_MEM(base), area[get_type(size)] -\
+	alloc_block(NULL, ptr_zone_mem(base, AREA_SIZE), area[get_type(size)] -\
 			AREA_SIZE - BLOCK_SIZE, 0);
 	return (base);
 }
@@ -72,7 +72,7 @@ void		*split_block(t_block *block, size_t size)
 	block->free = 1;
 	block->next = (t_block *)(new - BLOCK_SIZE);
 	((t_block *)(new - BLOCK_SIZE))->prev = block;
-	return (BLOCK_MEM(block));
+	return (ptr_zone_mem(block, BLOCK_SIZE));
 }
 
 void		fusion_block(t_block *block)

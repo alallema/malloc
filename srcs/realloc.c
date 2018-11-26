@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 18:24:09 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:18:56 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:41:20 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@ void	*check_realloc(t_block *block, size_t size)
 		+ (size_t)block->next->size) >= (ALIGN(size) + BLOCK_SIZE))
 		fusion_block(block);
 	if (block->size >= size && block->size <= ALIGN(size))
-		return (BLOCK_MEM(block));
+		return (ptr_zone_mem(block, BLOCK_SIZE));
 	if (block->size > (ALIGN(size) + BLOCK_SIZE))
 	{
 		buff = split_block(block, size);
 		if (block->next)
-			ft_bzero(BLOCK_MEM(block->next), block->next->size - BLOCK_SIZE);
-		return (BLOCK_MEM(block));
+			ft_bzero(ptr_zone_mem(block->next, BLOCK_SIZE),
+				block->next->size - BLOCK_SIZE);
+		return (ptr_zone_mem(block, BLOCK_SIZE));
 	}
 	else
 	{
 		buff = malloc(size);
-		ft_memcpy(buff, BLOCK_MEM(block), block->size);
-		free(BLOCK_MEM(block));
+		ft_memcpy(buff, ptr_zone_mem(block, BLOCK_SIZE), block->size);
+		free(ptr_zone_mem(block, BLOCK_SIZE));
 		return (buff);
 	}
 	return (NULL);

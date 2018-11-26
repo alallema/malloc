@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:33:20 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:29:01 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:35:32 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void			free(void *ptr)
 				fusion_block(block);
 			if (block->prev && block->prev->free == 0)
 				fusion_block(block->prev);
-			ft_bzero((void *)BLOCK_MEM(block), size);
+			ft_bzero(ptr_zone_mem(block, BLOCK_SIZE), size);
 		}
 	}
 }

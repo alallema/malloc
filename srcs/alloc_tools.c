@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 19:14:32 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:20:57 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:33:17 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,9 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		i++;
 	}
 	return (dst);
+}
+
+void	*ptr_zone_mem(void *ptr, size_t size)
+{
+	return ((void *)((unsigned long)ptr + size));
 }

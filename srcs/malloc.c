@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:22:53 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:13:18 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:36:09 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		*init_alloc(size_t size)
 		else
 		{
 			block->free = 1;
-			return (BLOCK_MEM(block));
+			return (ptr_zone_mem(block, BLOCK_SIZE));
 		}
 	}
 	return (NULL);

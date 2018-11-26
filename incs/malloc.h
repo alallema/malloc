@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:28:58 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:40:04 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@
 # define TINY_TYPE 0
 # define SMALL_TYPE 1
 # define LARGE_TYPE 2
-
-# define BLOCK_MEM(ptr) ((void *)((unsigned long)ptr + BLOCK_SIZE))
-# define AREA_MEM(ptr) ((void *)((unsigned long)ptr + AREA_SIZE))
 
 # define ALIGNEMENT 16
 # define ALIGN(size) (((size) + (ALIGNEMENT-1)) & ~(ALIGNEMENT-1))
@@ -74,6 +71,7 @@ void				delete_area(t_area *area);
 void				*ft_bzero(void *ptr, size_t size);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*check_ptr(void *ptr);
+void				*ptr_zone_mem(void *ptr, size_t size);
 
 void				free(void *ptr);
 void				*malloc(size_t size);
