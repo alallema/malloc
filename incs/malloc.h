@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:40:04 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:51:35 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@
 # define LARGE_TYPE 2
 
 # define ALIGNEMENT 16
-# define ALIGN(size) (((size) + (ALIGNEMENT-1)) & ~(ALIGNEMENT-1))
-# define ALIGN_PAGE(size) (ALIGN(MAX_SIZE))
 
 typedef struct		s_block
 {
@@ -72,6 +70,8 @@ void				*ft_bzero(void *ptr, size_t size);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*check_ptr(void *ptr);
 void				*ptr_zone_mem(void *ptr, size_t size);
+size_t				align(size_t size);
+size_t				align_page(size_t size);
 
 void				free(void *ptr);
 void				*malloc(size_t size);

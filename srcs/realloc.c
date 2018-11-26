@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 18:24:09 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:41:20 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:45:40 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	*check_realloc(t_block *block, size_t size)
 	void		*buff;
 
 	if (block->next && block->next->free == 0 && ((size_t)block->size\
-		+ (size_t)block->next->size) >= (ALIGN(size) + BLOCK_SIZE))
+		+ (size_t)block->next->size) >= (align(size) + BLOCK_SIZE))
 		fusion_block(block);
-	if (block->size >= size && block->size <= ALIGN(size))
+	if (block->size >= size && block->size <= align(size))
 		return (ptr_zone_mem(block, BLOCK_SIZE));
-	if (block->size > (ALIGN(size) + BLOCK_SIZE))
+	if (block->size > (align(size) + BLOCK_SIZE))
 	{
 		buff = split_block(block, size);
 		if (block->next)

@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 19:14:32 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:33:17 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:50:08 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,14 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 void	*ptr_zone_mem(void *ptr, size_t size)
 {
 	return ((void *)((unsigned long)ptr + size));
+}
+
+size_t	align(size_t size)
+{
+	return (((size) + (ALIGNEMENT - 1)) & ~(ALIGNEMENT - 1));
+}
+
+size_t	align_page(size_t size)
+{
+	return (align(MAX_SIZE));
 }
