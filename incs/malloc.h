@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/24 18:20:10 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:28:58 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void				*split_block(t_block *block, size_t size);
 void				fusion_block(t_block *block);
 void				delete_area(t_area *area);
 void				*ft_bzero(void *ptr, size_t size);
+void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*check_ptr(void *ptr);
 
 void				free(void *ptr);
@@ -81,6 +82,5 @@ void				*realloc(void *ptr, size_t size);
 void				show_alloc_mem();
 void				print_area(void *addr, int type);
 void				putstr(char const *str);
-void				putnbr_base(unsigned long nb, int base);
 
 #endif

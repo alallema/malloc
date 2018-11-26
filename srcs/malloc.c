@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:22:53 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/24 18:18:58 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:13:18 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ static void		*init_alloc(size_t size)
 	block = find_block(area->base, size);
 	if ((area && area->type != get_type(size)) || !block)
 	{
-		putstr("** MALLOC **\nsize :");
-		putnbr_base(size, 10);
-		putstr(" **\n");
 		area->next = alloc_area(size);
 		area->next->prev = area;
 		area = area->next;

@@ -6,54 +6,41 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:33:20 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/24 18:19:39 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:29:01 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void	*ft_bzero(void *s, size_t n)
+static int		clean_area(t_block *block)
 {
-	unsigned char	*src;
-	size_t			i;
+	t_area	*area;
+	t_area	*tmp;
+	int		type;
+	int		area_type[3];
 
-	i = 0;
-	if (!s)
-		return (NULL);
-	if (n == 0)
-		return (s);
-	src = (unsigned char *)s;
-	while (i < n)
+	area_type[0] = 0;
+	area_type[1] = 0;
+	area_type[2] = 0;
+	while (block && block->prev)
+		block = block->prev;
+	area = (t_area *)((unsigned long)block - AREA_SIZE);
+	if (block && area)
 	{
-		src[i] = 0;
-		i++;
+		type = area->type;
+		tmp = g_base;
+		while (tmp)
+		{
+			area_type[tmp->type] += 1;
+			tmp = tmp->next;
+		}
+		if (area_type[area->type] > 1)
+			return (1);
 	}
-	return (src);
+	return (0);
 }
 
-//int		clean_area(t_block *block)
-//{
-//	t_area	*area;
-//	t_area	*tmp;
-//	int		type;
-//	int		type[3];
-//
-//	type[0] = 0;
-//	type[1] = 0;
-//	type[2] = 0;
-//	area = (t_area *)((unsigned long)tmp - AREA_SIZE);
-//	tmp = g_base;
-//	while (tmp)
-//	{
-//		type[area->type] = 1;
-//		if (type[0] && type[1] && type[2])
-//			return (0);
-//		tmp = tmp->next;
-//	}
-//	return (1);
-//}
-
-int		area_is_empty(t_block *block)
+static int		area_is_empty(t_block *block)
 {
 	t_block	*tmp;
 
@@ -69,7 +56,7 @@ int		area_is_empty(t_block *block)
 	return (1);
 }
 
-void	free_area(t_block *block)
+static void		free_area(t_block *block)
 {
 	t_area	*area;
 	t_block	*tmp;
@@ -88,11 +75,10 @@ void	free_area(t_block *block)
 		size = ALIGN_PAGE(size);
 	delete_area(area);
 	ft_bzero(area, size);
-	putstr("** MUNMAP **\n");
 	munmap((void *)area, size);
 }
 
-void	*check_ptr(void *ptr)
+void			*check_ptr(void *ptr)
 {
 	t_block		*block;
 	t_block		*tmp;
@@ -116,7 +102,7 @@ void	*check_ptr(void *ptr)
 	return (NULL);
 }
 
-void	free(void *ptr)
+void			free(void *ptr)
 {
 	t_block		*block;
 	size_t		size;
@@ -125,12 +111,12 @@ void	free(void *ptr)
 		return ;
 	if (!check_ptr(ptr))
 		return ;
-	putstr("** FREE **\n");
 	if ((block = ptr - BLOCK_SIZE))
 	{
 		block->free = 0;
 		size = block->size;
-		if (get_type(block->size) == 2 || area_is_empty(block))
+		if (get_type(block->size) == 2 || (area_is_empty(block)
+			&& clean_area(block)))
 			free_area(block);
 		else
 		{

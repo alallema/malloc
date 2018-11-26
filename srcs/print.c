@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 12:13:31 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/24 16:55:31 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/26 19:29:00 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			putstr(char const *str)
 	}
 }
 
-void		putnbr_base(unsigned long n, int base)
+static void		putnbr_base(unsigned long n, int base)
 {
 	char const	*char_base = "0123456789abcdef";
 
@@ -55,8 +55,6 @@ static void		print_block(void *addr)
 	putstr(" : ");
 	putnbr_base(end - begin, 10);
 	putstr(" octets\n");
-//	putnbr_base(((t_block *)addr)->free, 10);
-//	putstr("\n");
 }
 
 void			print_area(void *addr, int type)

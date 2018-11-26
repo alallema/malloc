@@ -11,7 +11,6 @@ ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-#NAME =		test
 NAME =		libft_malloc.so
 
 IDIR =		./incs/
@@ -24,6 +23,7 @@ SRCS =		alloc.c			\
 			malloc.c		\
 			realloc.c		\
 			free.c			\
+			alloc_tools.c	\
 			list_tools.c	\
 			print.c			\
 			show_alloc_mem.c
@@ -42,7 +42,6 @@ all: $(NAME)
 
 $(NAME): header $(OBCC)
 	@echo "  ${PUR}++ Compilation ++ :${STD} $@"
-#	@gcc -g $(FLAG) $(OBCC) -o $(NAME)
 	@gcc -g $(FLAG) $(OBCC) -fPIC -shared -Wpadded -o libft_malloc_$(HOSTTYPE).so
 	@ln -sf libft_malloc_$(HOSTTYPE).so libft_malloc.so
 	@echo "  ${PIN}Compilation terminee !${STD}"
@@ -67,7 +66,7 @@ norme: header
 clean: header
 	@echo "  ${RED}-Delete all object files${STD}"
 	@rm -rf $(ODIR)
-#	@rm -f $(OBCC)
+	@rm -f $(OBCC)
 
 fclean: clean
 	@rm -f $(NAME)
