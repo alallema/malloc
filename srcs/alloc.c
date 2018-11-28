@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 19:38:45 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:47:40 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/28 13:28:06 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		*alloc_area(size_t size)
 	base->base = ptr_zone_mem(base, AREA_SIZE);
 	base->next = NULL;
 	base->prev = NULL;
-	alloc_block(NULL, ptr_zone_mem(base, AREA_SIZE), area[get_type(size)] -\
+	alloc_block(NULL, base->base, area[get_type(size)] -\
 			AREA_SIZE - BLOCK_SIZE, 0);
 	return (base);
 }
@@ -67,7 +67,9 @@ void		*split_block(t_block *block, size_t size)
 	size = align(size);
 	size_new = block->size - size - BLOCK_SIZE;
 	addr = ((void *)((unsigned long)(block) + size + BLOCK_SIZE));
-	new = alloc_block(block->next, addr, size_new, 0);
+	new = alloc_block((void *)(block->next), addr, size_new, 0);
+	if (block->next)
+		block->next->prev = (t_block *)(new - BLOCK_SIZE);
 	block->size = size;
 	block->free = 1;
 	block->next = (t_block *)(new - BLOCK_SIZE);
@@ -77,15 +79,15 @@ void		*split_block(t_block *block, size_t size)
 
 void		fusion_block(t_block *block)
 {
-	size_t	ret;
+//	size_t	ret;
 	t_block	*buff;
 
-	ret = block->next->size;
+//	ret = block->next->size;
 	block->size += block->next->size + BLOCK_SIZE;
 	buff = block->next;
-	block->next = block->next->next;
+	block->next = buff->next;
 	if (block->next)
 		block->next->prev = block;
-	if (check_ptr(buff))
-		ft_bzero(buff, ret);
+//	if (check_ptr(buff))
+	ft_bzero(buff, BLOCK_SIZE);
 }

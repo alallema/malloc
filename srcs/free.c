@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:33:20 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:47:58 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/28 13:30:30 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,32 +72,28 @@ static void		free_area(t_block *block)
 	else if (area->type == SMALL_TYPE)
 		size = SMALL_AREA;
 	else
-		size = align_page(size);
+		size = tmp->size + MAX_SIZE;
 	delete_area(area);
-	ft_bzero(area, size);
+	ft_bzero((void *)area, size);
 	munmap((void *)area, size);
 }
 
 void			*check_ptr(void *ptr)
 {
-	t_block		*block;
 	t_block		*tmp;
 	t_area		*area;
 
-	if ((block = ptr - BLOCK_SIZE))
+	area = g_base;
+	while (area)
 	{
-		area = g_base;
-		while (area)
+		tmp = area->base;
+		while (tmp)
 		{
-			tmp = area->base;
-			while (tmp)
-			{
-				if (block == tmp)
-					return (block);
-				tmp = tmp->next;
-			}
-			area = area->next;
+			if (ptr_zone_mem(tmp, BLOCK_SIZE) == ptr)
+				return (ptr);
+			tmp = tmp->next;
 		}
+		area = area->next;
 	}
 	return (NULL);
 }
@@ -107,6 +103,7 @@ void			free(void *ptr)
 	t_block		*block;
 	size_t		size;
 
+//	putstr("** FREE **\n");
 	if (!ptr)
 		return ;
 	if (!check_ptr(ptr))
@@ -123,7 +120,10 @@ void			free(void *ptr)
 			if (block->next && block->next->free == 0)
 				fusion_block(block);
 			if (block->prev && block->prev->free == 0)
-				fusion_block(block->prev);
+			{
+				block = block->prev;
+				fusion_block(block);
+			}
 			ft_bzero(ptr_zone_mem(block, BLOCK_SIZE), size);
 		}
 	}

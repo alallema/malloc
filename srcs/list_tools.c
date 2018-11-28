@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:25:46 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/24 18:20:48 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/27 16:49:13 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*find_area(size_t size)
 	type = get_type(size);
 	while (ptr && ptr->next)
 	{
-		if (ptr->type == type && type < 2)
+		if (ptr->type == type)
 			if ((block = find_block(ptr->base, size)))
 				return (ptr);
 		ptr = ptr->next;

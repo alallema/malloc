@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:51:35 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/27 18:27:34 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,20 @@
 
 # define BLOCK_SIZE sizeof(t_block)
 # define AREA_SIZE sizeof(t_area)
-# define MAX_SIZE (size + BLOCK_SIZE + AREA_SIZE)
+# define MAX_SIZE (BLOCK_SIZE + AREA_SIZE)
 
 # define TINY 512
 # define SMALL 4096
 # define PAGE getpagesize()
 # define PADD 16
 
-# define TINY_AREA ((BLOCK_SIZE + AREA_SIZE + TINY)*100)/PAGE*PAGE
-# define SMALL_AREA (((((BLOCK_SIZE + AREA_SIZE + SMALL)*100)/PAGE) + 1)*PAGE)
+# define TINY_AREA (((BLOCK_SIZE + TINY)*100) + AREA_SIZE)/PAGE*PAGE
+# define SMALL_AREA (((BLOCK_SIZE + SMALL)*100) + AREA_SIZE)/PAGE*PAGE
+//# define SMALL_AREA (((((BLOCK_SIZE + AREA_SIZE + SMALL)*100)/PAGE) + 1)*PAGE)
 
 # define TINY_TYPE 0
 # define SMALL_TYPE 1
 # define LARGE_TYPE 2
-
-# define ALIGNEMENT 16
 
 typedef struct		s_block
 {

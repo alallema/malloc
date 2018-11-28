@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 19:14:32 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/26 19:50:08 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/28 13:26:21 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	*ptr_zone_mem(void *ptr, size_t size)
 
 size_t	align(size_t size)
 {
-	return (((size) + (ALIGNEMENT - 1)) & ~(ALIGNEMENT - 1));
+	return (((size) + (PADD - 1)) & ~(PADD - 1));
 }
 
 size_t	align_page(size_t size)
 {
-	return (align(MAX_SIZE));
+	return (align(size + MAX_SIZE));
 }
