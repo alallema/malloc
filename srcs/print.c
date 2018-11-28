@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 12:13:31 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/27 18:27:57 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/28 20:31:26 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			putstr(char const *str)
 	}
 }
 
-static void		putnbr_base(unsigned long n, int base)
+void			putnbr_base(unsigned long n, int base)
 {
 	char const	*char_base = "0123456789abcdef";
 
@@ -57,23 +57,29 @@ static void		print_block(void *addr)
 	putstr(" octets\n");
 }
 
-void			print_area(void *addr, int type)
+size_t			print_area(void *addr, int type, int pos)
 {
 	void	*block;
+	size_t	size;
 
-	if (type == 0)
+	if (type == 0 && pos == 0)
 		putstr("TINY : ");
-	if (type == 1)
+	if (type == 1 && pos == 0)
 		putstr("SMALL : ");
-	if (type == 2)
+	if (type == 2 && pos == 0)
 		putstr("LARGE : ");
-	print_addr(addr);
-	putstr("\n");
+	if (pos == 0)
+	{
+		print_addr(addr);
+		putstr("\n");
+	}
 	block = ((t_area *)addr)->base;
+	size = 0;
 	while (block)
 	{
 		print_block(block);
+		size += ((t_block *)block)->size;
 		block = ((t_block *)block)->next;
 	}
-	putstr("\n");
+	return (size);
 }

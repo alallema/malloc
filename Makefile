@@ -21,6 +21,7 @@ INCC =		$(addprefix $(IDIR),$(INCS))
 SDIR =		./srcs/
 SRCS =		alloc.c			\
 			malloc.c		\
+			calloc.c		\
 			realloc.c		\
 			free.c			\
 			alloc_tools.c	\

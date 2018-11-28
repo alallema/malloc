@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 17:33:20 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/28 13:30:30 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/28 20:09:30 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,9 @@ void			free(void *ptr)
 	t_block		*block;
 	size_t		size;
 
-//	putstr("** FREE **\n");
-	if (!ptr)
+	if (!ptr || !check_ptr(ptr))
 		return ;
-	if (!check_ptr(ptr))
-		return ;
+	pthread_mutex_lock(&g_mutex[MUTEX_FREE]);
 	if ((block = ptr - BLOCK_SIZE))
 	{
 		block->free = 0;
@@ -120,11 +118,9 @@ void			free(void *ptr)
 			if (block->next && block->next->free == 0)
 				fusion_block(block);
 			if (block->prev && block->prev->free == 0)
-			{
-				block = block->prev;
-				fusion_block(block);
-			}
+				fusion_block((block = block->prev));
 			ft_bzero(ptr_zone_mem(block, BLOCK_SIZE), size);
 		}
 	}
+	pthread_mutex_unlock(&g_mutex[MUTEX_FREE]);
 }

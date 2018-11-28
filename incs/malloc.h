@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/27 18:27:34 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/28 20:25:48 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,28 @@
 # include <errno.h>
 # include <string.h>
 # include <stdio.h>
+# include <pthread.h>
 
 # define BLOCK_SIZE sizeof(t_block)
 # define AREA_SIZE sizeof(t_area)
 # define MAX_SIZE (BLOCK_SIZE + AREA_SIZE)
 
-# define TINY 512
-# define SMALL 4096
+# define TINY 128
+# define SMALL 2048
 # define PAGE getpagesize()
 # define PADD 16
 
-# define TINY_AREA (((BLOCK_SIZE + TINY)*100) + AREA_SIZE)/PAGE*PAGE
-# define SMALL_AREA (((BLOCK_SIZE + SMALL)*100) + AREA_SIZE)/PAGE*PAGE
-//# define SMALL_AREA (((((BLOCK_SIZE + AREA_SIZE + SMALL)*100)/PAGE) + 1)*PAGE)
+# define TINY_AREA ((((((BLOCK_SIZE  + TINY)*100) + AREA_SIZE)/PAGE) + 1)*PAGE)
+# define SMALL_AREA (((((BLOCK_SIZE  + SMALL)*100) + AREA_SIZE)/PAGE) + 1)*PAGE
 
 # define TINY_TYPE 0
 # define SMALL_TYPE 1
 # define LARGE_TYPE 2
+
+# define MUTEX_MALLOC 0
+# define MUTEX_FREE 1
+# define MUTEX_REALLOC 2
+# define MUTEX_SHOW 3
 
 typedef struct		s_block
 {
@@ -53,6 +58,7 @@ typedef struct		s_area
 }					t_area;
 
 t_area				*g_base;
+pthread_mutex_t		g_mutex[5];
 
 void				print_block_list(t_block *block);
 void				print_list();
@@ -74,10 +80,12 @@ size_t				align_page(size_t size);
 
 void				free(void *ptr);
 void				*malloc(size_t size);
+void				*calloc(size_t count, size_t size);
 void				*realloc(void *ptr, size_t size);
 
 void				show_alloc_mem();
-void				print_area(void *addr, int type);
+size_t				print_area(void *addr, int type, int pos);
+void				putnbr_base(unsigned long n, int base);
 void				putstr(char const *str);
 
 #endif

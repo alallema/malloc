@@ -6,29 +6,27 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 19:14:32 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/28 13:26:21 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/28 14:31:58 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void	*ft_bzero(void *s, size_t n)
+void	*ft_bzero(void *ptr, size_t n)
 {
-	unsigned char	*src;
 	size_t			i;
 
 	i = 0;
-	if (!s)
+	if (!ptr)
 		return (NULL);
 	if (n == 0)
-		return (s);
-	src = (unsigned char *)s;
+		return (ptr);
 	while (i < n)
 	{
-		src[i] = 0;
+		*((unsigned char *)(ptr + i)) = 0;
 		i++;
 	}
-	return (src);
+	return (ptr);
 }
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
