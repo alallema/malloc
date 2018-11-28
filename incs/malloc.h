@@ -6,7 +6,7 @@
 /*   By: alallema <alallema@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 14:07:35 by alallema          #+#    #+#             */
-/*   Updated: 2018/11/28 20:25:48 by alallema         ###   ########.fr       */
+/*   Updated: 2018/11/28 21:01:10 by alallema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define PAGE getpagesize()
 # define PADD 16
 
-# define TINY_AREA ((((((BLOCK_SIZE  + TINY)*100) + AREA_SIZE)/PAGE) + 1)*PAGE)
-# define SMALL_AREA (((((BLOCK_SIZE  + SMALL)*100) + AREA_SIZE)/PAGE) + 1)*PAGE
+# define TINY_AREA ((((((BLOCK_SIZE + TINY)*100) + AREA_SIZE)/PAGE) + 1)*PAGE)
+# define SMALL_AREA ((((((BLOCK_SIZE + SMALL)*100) + AREA_SIZE)/PAGE) + 1)*PAGE)
 
 # define TINY_TYPE 0
 # define SMALL_TYPE 1
