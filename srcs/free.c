@@ -105,7 +105,7 @@ void			free(void *ptr)
 
 	if (!ptr || !check_ptr(ptr))
 		return ;
-	pthread_mutex_lock(&g_mutex[MUTEX_FREE]);
+	pthread_mutex_lock(&g_mutex);
 	if ((block = ptr - BLOCK_SIZE))
 	{
 		block->free = 0;
@@ -122,5 +122,5 @@ void			free(void *ptr)
 			ft_bzero(ptr_zone_mem(block, BLOCK_SIZE), size);
 		}
 	}
-	pthread_mutex_unlock(&g_mutex[MUTEX_FREE]);
+	pthread_mutex_unlock(&g_mutex);
 }

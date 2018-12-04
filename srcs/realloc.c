@@ -48,18 +48,18 @@ void	*realloc(void *ptr, size_t size)
 		return (malloc(size));
 	if (!check_ptr(ptr))
 		return (NULL);
-	pthread_mutex_lock(&g_mutex[MUTEX_REALLOC]);
+	pthread_mutex_lock(&g_mutex);
 	if (size == 0)
 	{
 		free(ptr);
-		pthread_mutex_unlock(&g_mutex[MUTEX_REALLOC]);
+		pthread_mutex_unlock(&g_mutex);
 		return (malloc(1));
 	}
 	if ((block = ptr - BLOCK_SIZE))
 	{
-		pthread_mutex_unlock(&g_mutex[MUTEX_REALLOC]);
+		pthread_mutex_unlock(&g_mutex);
 		return (check_realloc(block, size));
 	}
-	pthread_mutex_unlock(&g_mutex[MUTEX_REALLOC]);
+	pthread_mutex_unlock(&g_mutex);
 	return (NULL);
 }

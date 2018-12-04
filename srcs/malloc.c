@@ -12,10 +12,7 @@
 
 #include "malloc.h"
 
-pthread_mutex_t		g_mutex[5] = {PTHREAD_MUTEX_INITIALIZER,
-	PTHREAD_MUTEX_INITIALIZER,
-	PTHREAD_MUTEX_INITIALIZER,
-	PTHREAD_MUTEX_INITIALIZER};
+pthread_mutex_t		g_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static void		*init_alloc(size_t size)
 {
@@ -52,10 +49,10 @@ void			*malloc(size_t size)
 
 	ptr = NULL;
 	base = NULL;
-	pthread_mutex_lock(&g_mutex[MUTEX_MALLOC]);
+	pthread_mutex_lock(&g_mutex);
 	if (size <= 0)
 		return (NULL);
 	ptr = init_alloc(size);
-	pthread_mutex_unlock(&g_mutex[MUTEX_MALLOC]);
+	pthread_mutex_unlock(&g_mutex);
 	return (ptr);
 }

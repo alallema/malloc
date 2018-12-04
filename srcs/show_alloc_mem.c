@@ -42,7 +42,7 @@ void		show_alloc_mem(void)
 	size = 0;
 	type = 0;
 	pos = 0;
-	pthread_mutex_lock(&g_mutex[MUTEX_SHOW]);
+	pthread_mutex_lock(&g_mutex);
 	if (g_base)
 	{
 		while (type < 3)
@@ -55,5 +55,5 @@ void		show_alloc_mem(void)
 		putnbr_base(size, 10);
 		putstr(" octets\n");
 	}
-	pthread_mutex_unlock(&g_mutex[MUTEX_SHOW]);
+	pthread_mutex_unlock(&g_mutex);
 }

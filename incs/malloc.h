@@ -36,11 +36,6 @@
 # define SMALL_TYPE 1
 # define LARGE_TYPE 2
 
-# define MUTEX_MALLOC 0
-# define MUTEX_FREE 1
-# define MUTEX_REALLOC 2
-# define MUTEX_SHOW 3
-
 typedef struct		s_block
 {
 	size_t			size;
@@ -58,7 +53,7 @@ typedef struct		s_area
 }					t_area;
 
 t_area				*g_base;
-pthread_mutex_t		g_mutex[5];
+pthread_mutex_t		g_mutex;
 
 void				print_block_list(t_block *block);
 void				print_list();
